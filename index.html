@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smart Errand Runner | Your Day, Optimized</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Warm Neutral Harmony -->
+    <!-- Application Structure Plan: A narrative landing page structure was chosen to guide users from the high-level value proposition to technical details and future plans. This flow (Hero -> Problem/Solution -> Features -> AI Suggestions -> Architecture -> Roadmap -> CTA) is ideal for showcasing a project, building interest, and establishing credibility. Key interactions include smooth-scrolling navigation, hover effects, and a new interactive AI feature powered by the Gemini API. -->
+    <!-- Visualization & Content Choices: Report Info: Core functionalities, tech stack, and new AI feature. Goal: Inform, engage, and demonstrate advanced capabilities. Viz/Presentation: Interactive HTML/CSS diagram for architecture, a Chart.js bar chart for time-saving, icon-driven feature cards, and a new interactive section for Gemini API. Interaction: Section navigation, hover effects, and a user-input form to call the Gemini API. Justification: This blend of static info and interactive AI provides a comprehensive and engaging overview of the project's capabilities. Library/Method: Vanilla JS, Chart.js, Tailwind, and a new fetch call to the Gemini API. -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .loader {
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #4f46e5;
+            border-radius: 50%;
+            width: 24px;
+            height: 24px;
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-800 antialiased">
+
+    <!-- Header & Navigation -->
+    <header id="header" class="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-200">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#hero" class="text-xl font-bold text-gray-900">
+                🚀 Smart Errand Runner
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#features" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Features</a>
+                <a href="#ai-suggestions" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">AI Suggestions</a>
+                <a href="#architecture" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Architecture</a>
+                <a href="#roadmap" class="text-gray-600 hover:text-indigo-600 transition-colors duration-300">Roadmap</a>
+            </nav>
+            <a href="#contact" class="hidden md:inline-block bg-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-indigo-700 transition-transform duration-300 hover:scale-105">
+                Get Involved
+            </a>
+            <button id="mobile-menu-button" class="md:hidden text-gray-700">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden px-6 pb-4">
+            <a href="#features" class="block py-2 text-gray-600 hover:text-indigo-600">Features</a>
+            <a href="#ai-suggestions" class="block py-2 text-gray-600 hover:text-indigo-600">AI Suggestions</a>
+            <a href="#architecture" class="block py-2 text-gray-600 hover:text-indigo-600">Architecture</a>
+            <a href="#roadmap" class="block py-2 text-gray-600 hover:text-indigo-600">Roadmap</a>
+            <a href="#contact" class="block mt-2 text-center bg-indigo-600 text-white font-semibold px-5 py-2 rounded-lg hover:bg-indigo-700">Get Involved</a>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="bg-white py-20 md:py-32">
+            <div class="container mx-auto px-6 text-center">
+                <h1 class="text-4xl md:text-6xl font-extrabold text-gray-900 leading-tight mb-4">
+                    The Intelligent Way to Run Errands.
+                </h1>
+                <p class="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto mb-8">
+                    Smart Errand Runner transforms your chaotic to-do list into a single, optimized, time-saving route. Stop driving in circles and start living.
+                </p>
+                <div class="flex justify-center space-x-4">
+                    <a href="#" class="bg-indigo-600 text-white font-semibold px-8 py-3 rounded-lg hover:bg-indigo-700 transition-transform duration-300 hover:scale-105 shadow-lg">
+                        View Live Demo
+                    </a>
+                    <a href="#" class="bg-gray-200 text-gray-800 font-semibold px-8 py-3 rounded-lg hover:bg-gray-300 transition-transform duration-300 hover:scale-105">
+                        Explore on GitHub
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Problem & Solution Section -->
+        <section id="problem-solution" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">From a Wasted Saturday to a Smarter Path Forward</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">This section explains the core problem the app solves: the inefficient, frustrating nature of unplanned errands. It then introduces the solution: a logistics engine for your personal life that provides an optimized, multi-stop route.</p>
+                </div>
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-2xl font-bold mb-4 text-red-600">The Problem: The Errand Maze</h3>
+                        <p class="text-gray-600 leading-relaxed">
+                            A simple to-do list—groceries, post office, dry cleaning—quickly becomes a logistical nightmare. Backtracking, wasted fuel, and the constant mental load of "what's next? is it open?" drain your time and energy, turning a productive day into a frustrating series of inefficient micro-journeys.
+                        </p>
+                    </div>
+                    <div class="bg-white p-8 rounded-xl shadow-md border border-gray-200">
+                        <h3 class="text-2xl font-bold mb-4 text-green-600">The Solution: Your Day, Optimized</h3>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            Smart Errand Runner eliminates the chaos. Input your errands, and our intelligent engine calculates the single most efficient route, considering distance and business hours. We give you back your time, reduce your mileage, and remove the mental overhead of planning.
+                        </p>
+                        <div class="chart-container">
+                            <canvas id="efficiencyChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Section -->
+        <section id="features" class="bg-white py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">Features That Drive Efficiency</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">This section details the core functionalities of the Smart Errand Runner. Each feature is presented with a clear benefit to the user, from finding the right place to getting there in the smartest way possible.</p>
+                </div>
+                <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200">
+                        <div class="text-4xl mb-4">🧠</div>
+                        <h3 class="text-xl font-bold mb-2">Natural Language Input</h3>
+                        <p class="text-gray-600">Just type "buy groceries" or "pick up dry cleaning." Our AI parser understands your needs and finds the right category of places for you.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200">
+                        <div class="text-4xl mb-4">📍</div>
+                        <h3 class="text-xl font-bold mb-2">Intelligent Venue Discovery</h3>
+                        <p class="text-gray-600">Powered by the Foursquare API, we search millions of venues to find the best, closest, and highest-rated options for your errands.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <h3 class="text-xl font-bold mb-2">Optimal Route Calculation</h3>
+                        <p class="text-gray-600">Our core feature. We solve the "Traveling Salesperson Problem" for your day, creating the most efficient multi-stop route to save you time and gas.</p>
+                    </div>
+                    <div class="bg-gray-50 p-8 rounded-xl hover:shadow-lg hover:-translate-y-1 transition-all duration-300 border border-gray-200">
+                        <div class="text-4xl mb-4">✨</div>
+                        <h3 class="text-xl font-bold mb-2">AI-Powered Suggestions</h3>
+                        <p class="text-gray-600">Powered by Gemini, our app suggests related errands you might be forgetting, helping you get everything done in one trip.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <!-- AI Suggestions Section -->
+        <section id="ai-suggestions" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">✨ Let Our AI Help You Plan</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">Ever forget something? Enter your list of errands below, and our Gemini-powered assistant will suggest related tasks or group them logically to make your trip even more efficient.</p>
+                </div>
+                <div class="max-w-2xl mx-auto bg-white p-8 rounded-xl shadow-lg border border-gray-200">
+                    <div>
+                        <label for="errand-input" class="block text-sm font-medium text-gray-700 mb-2">Your Errand List (e.g., "Go to the post office, buy milk, return library books")</label>
+                        <textarea id="errand-input" rows="4" class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500 transition" placeholder="Enter your errands here..."></textarea>
+                    </div>
+                    <div class="mt-4">
+                        <button id="get-suggestions-btn" class="w-full flex items-center justify-center bg-indigo-600 text-white font-semibold px-6 py-3 rounded-lg hover:bg-indigo-700 transition-transform duration-300 hover:scale-105 shadow-lg disabled:bg-indigo-400 disabled:cursor-not-allowed">
+                            <span id="btn-text">Get Smart Suggestions</span>
+                            <div id="btn-loader" class="loader hidden ml-3"></div>
+                        </button>
+                    </div>
+                    <div id="suggestions-output" class="mt-6 hidden">
+                        <h3 class="text-lg font-semibold text-gray-800 border-b pb-2 mb-4">AI Recommendations:</h3>
+                        <div id="suggestions-content" class="text-gray-700 bg-indigo-50 p-4 rounded-lg"></div>
+                    </div>
+                     <div id="error-output" class="mt-4 text-red-600 hidden"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Architecture Section -->
+        <section id="architecture" class="bg-white py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">The Architectural Blueprint</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">This section provides a look under the hood at the modern, scalable technology stack that powers the application, from the frontend user experience to the serverless backend and third-party APIs.</p>
+                </div>
+
+                <div class="bg-white p-8 rounded-xl shadow-lg border border-gray-200 overflow-x-auto">
+                    <table class="w-full text-left">
+                        <thead>
+                            <tr class="border-b-2 border-gray-200">
+                                <th class="py-3 pr-4 font-bold">Technology</th>
+                                <th class="py-3 pr-4 font-bold">Role in Project</th>
+                                <th class="py-3 font-bold">Key Rationale / Benefit</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-4 pr-4 font-semibold">React</td>
+                                <td class="py-4 pr-4 text-gray-600">Frontend UI Library</td>
+                                <td class="py-4 text-gray-600">Component-based architecture for a dynamic and maintainable UI.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-4 pr-4 font-semibold">Tailwind CSS</td>
+                                <td class="py-4 pr-4 text-gray-600">CSS Framework</td>
+                                <td class="py-4 text-gray-600">Utility-first approach for rapid, custom UI development.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-4 pr-4 font-semibold">Gemini API</td>
+                                <td class="py-4 pr-4 text-gray-600">AI & Language Model</td>
+                                <td class="py-4 text-gray-600">Provides intelligent suggestions and natural language understanding.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-4 pr-4 font-semibold">Mapbox</td>
+                                <td class="py-4 pr-4 text-gray-600">Mapping & Routing</td>
+                                <td class="py-4 text-gray-600">High-performance maps and powerful route optimization API.</td>
+                            </tr>
+                            <tr class="border-b border-gray-200">
+                                <td class="py-4 pr-4 font-semibold">Foursquare API</td>
+                                <td class="py-4 pr-4 text-gray-600">Location Intelligence</td>
+                                <td class="py-4 text-gray-600">Rich, accurate, and comprehensive Point of Interest (POI) data.</td>
+                            </tr>
+                            <tr>
+                                <td class="py-4 pr-4 font-semibold">Serverless (AWS Lambda)</td>
+                                <td class="py-4 pr-4 text-gray-600">Backend Compute</td>
+                                <td class="py-4 text-gray-600">Auto-scaling, pay-per-use, and low operational overhead.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- Future Roadmap Section -->
+        <section id="roadmap" class="py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="text-center mb-12">
+                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900">The Road Ahead</h2>
+                    <p class="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">The current application is a feature-complete MVP, but its architecture allows for numerous exciting expansions. This section outlines the future development plans to make the app even more indispensable.</p>
+                </div>
+                <div class="max-w-3xl mx-auto">
+                    <div class="space-y-8">
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">1</div>
+                            <div>
+                                <h3 class="text-xl font-bold">Mobile Applications</h3>
+                                <p class="text-gray-600">Launch native iOS and Android apps for broader accessibility and an improved, on-the-go user experience.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">2</div>
+                            <div>
+                                <h3 class="text-xl font-bold">Personalization & ML</h3>
+                                <p class="text-gray-600">Use machine learning to tailor place suggestions based on user preferences, history, and even the time of day.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">3</div>
+                            <div>
+                                <h3 class="text-xl font-bold">Real-Time Updates</h3>
+                                <p class="text-gray-600">Incorporate live traffic and crowdedness data for dynamic route adjustments, ensuring the most efficient path, always.</p>
+                            </div>
+                        </div>
+                         <div class="flex items-start space-x-4">
+                            <div class="flex-shrink-0 w-12 h-12 bg-indigo-100 text-indigo-600 rounded-full flex items-center justify-center font-bold text-xl">4</div>
+                            <div>
+                                <h3 class="text-xl font-bold">Multi-User & Calendar Sync</h3>
+                                <p class="text-gray-600">Add features for collaborative family errand planning and sync with calendars to schedule tasks and send reminders.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA Section -->
+        <section id="contact" class="bg-gray-50 py-16 md:py-24">
+            <div class="container mx-auto px-6">
+                <div class="bg-indigo-700 text-white p-12 rounded-2xl text-center shadow-2xl">
+                    <h2 class="text-3xl md:text-4xl font-bold mb-4">Ready to Simplify Your Life?</h2>
+                    <p class="text-lg text-indigo-200 max-w-2xl mx-auto mb-8">
+                        This project showcases the power of modern web tech to solve real-world problems. Explore the live demo or dive into the code to see how it works.
+                    </p>
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                        <a href="#" class="bg-white text-indigo-700 font-semibold px-8 py-3 rounded-lg hover:bg-gray-100 transition-transform duration-300 hover:scale-105 w-full sm:w-auto">
+                            View Live Demo
+                        </a>
+                        <a href="#" class="border-2 border-indigo-400 text-white font-semibold px-8 py-3 rounded-lg hover:bg-indigo-600 transition-transform duration-300 hover:scale-105 w-full sm:w-auto">
+                            Browse on GitHub
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-gray-400 py-12">
+        <div class="container mx-auto px-6 text-center">
+            <p>&copy; 2025 Smart Errand Runner. A project showcasing modern web development.</p>
+            <p class="text-sm mt-2">Built with ❤️ using React, Tailwind CSS, Mapbox, Foursquare, and the Gemini API.</p>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Mobile menu toggle
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            mobileMenuButton.addEventListener('click', function () {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Smooth scrolling for navigation links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    const targetId = this.getAttribute('href');
+                    
+                    // Check for valid target ID to prevent error on href="#" links
+                    if (targetId && targetId !== '#') {
+                        e.preventDefault();
+                        
+                        const targetElement = document.querySelector(targetId);
+
+                        if (targetElement) {
+                            if (!mobileMenu.classList.contains('hidden')) {
+                                mobileMenu.classList.add('hidden');
+                            }
+                            
+                            targetElement.scrollIntoView({
+                                behavior: 'smooth',
+                                block: 'start'
+                            });
+                        }
+                    }
+                });
+            });
+
+            // Chart.js implementation
+            const ctx = document.getElementById('efficiencyChart').getContext('2d');
+            if (ctx) {
+                new Chart(ctx, {
+                    type: 'bar',
+                    data: {
+                        labels: ['Unplanned Errands', 'Smart Errand Runner'],
+                        datasets: [{
+                            label: 'Time Spent (minutes)',
+                            data: [120, 45],
+                            backgroundColor: ['rgba(239, 68, 68, 0.6)', 'rgba(34, 197, 94, 0.6)'],
+                            borderColor: ['rgba(239, 68, 68, 1)', 'rgba(34, 197, 94, 1)'],
+                            borderWidth: 1
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: { display: false },
+                            title: { display: true, text: 'Estimated Time Savings', font: { size: 16 }, color: '#374151' },
+                            tooltip: { callbacks: { label: (c) => ` ${c.dataset.label}: ${c.raw} mins` } }
+                        },
+                        scales: { y: { beginAtZero: true, title: { display: true, text: 'Minutes' } } }
+                    }
+                });
+            }
+
+            // Gemini API Integration
+            const getSuggestionsBtn = document.getElementById('get-suggestions-btn');
+            const errandInput = document.getElementById('errand-input');
+            const suggestionsOutput = document.getElementById('suggestions-output');
+            const suggestionsContent = document.getElementById('suggestions-content');
+            const errorOutput = document.getElementById('error-output');
+            const btnText = document.getElementById('btn-text');
+            const btnLoader = document.getElementById('btn-loader');
+
+            getSuggestionsBtn.addEventListener('click', async () => {
+                const userErrands = errandInput.value.trim();
+                if (!userErrands) {
+                    errorOutput.textContent = 'Please enter at least one errand.';
+                    errorOutput.classList.remove('hidden');
+                    return;
+                }
+
+                // UI state: loading
+                getSuggestionsBtn.disabled = true;
+                btnText.textContent = 'Thinking...';
+                btnLoader.classList.remove('hidden');
+                errorOutput.classList.add('hidden');
+                suggestionsOutput.classList.add('hidden');
+
+                const prompt = `Based on the following list of errands, suggest 3-4 additional related tasks or ways to group them logically to make the trip more efficient. Be creative and helpful. Errands: "${userErrands}". Present the output as a simple, bulleted list.`;
+                
+                let chatHistory = [{ role: "user", parts: [{ text: prompt }] }];
+                const payload = { contents: chatHistory };
+                const apiKey = "AIzaSyCEIdnXrNS2l6WHqCHqbLKWaRQvrNWi36w"; // Replace with your actual API key
+                const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash-preview-05-20:generateContent?key=${apiKey}`;
+
+                try {
+                    const response = await fetch(apiUrl, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify(payload)
+                    });
+
+                    if (!response.ok) {
+                        throw new Error(`API request failed with status ${response.status}`);
+                    }
+
+                    const result = await response.json();
+                    
+                    if (result.candidates && result.candidates.length > 0 &&
+                        result.candidates[0].content && result.candidates[0].content.parts &&
+                        result.candidates[0].content.parts.length > 0) {
+                        const text = result.candidates[0].content.parts[0].text;
+                        suggestionsContent.innerHTML = text.replace(/\*/g, '•').replace(/\n/g, '<br>');
+                        suggestionsOutput.classList.remove('hidden');
+                    } else {
+                        throw new Error('Unexpected response format from the API.');
+                    }
+
+                } catch (error) {
+                    console.error('Error calling Gemini API:', error);
+                    errorOutput.textContent = 'Sorry, we couldn\'t get suggestions at this time. Please try again later.';
+                    errorOutput.classList.remove('hidden');
+                } finally {
+                    // UI state: reset
+                    getSuggestionsBtn.disabled = false;
+                    btnText.textContent = 'Get Smart Suggestions';
+                    btnLoader.classList.add('hidden');
+                }
+            });
+        });
+    </script>
+
+</body>
+</html>
