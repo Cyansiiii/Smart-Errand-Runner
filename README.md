@@ -8,11 +8,11 @@ This project is a technical showcase demonstrating the integration of modern fro
 
 ### ✨ Live Demo
 
-*[Link to your deployed application here]*
+*[https://github.com/Cyansiiii/Smart-Errand-Runner]*
 
 ---
 
-### 核心功能 (Core Features)
+ (Core Features)
 
 * **Intelligent Venue Discovery**: Powered by the **Foursquare Places API**, the application can find any business or service from millions of venues. It searches for the best, closest, and highest-rated options that are currently open.
 * **AI-Powered Suggestions**: Utilizes the **Gemini API** to provide smart, context-aware recommendations. Based on a user's errand list and nearby venues, the AI suggests related tasks or logical groupings to make the trip even more efficient.
