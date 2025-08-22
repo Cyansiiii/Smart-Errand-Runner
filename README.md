@@ -8,7 +8,7 @@ This project is a technical showcase demonstrating the integration of modern fro
 
 ### ✨ Live Demo
 
-*[https://github.com/Cyansiiii/Smart-Errand-Runner]*
+*[https://smarterrandrunner.netlify.app/]*
 
 ---
 
